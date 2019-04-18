@@ -23,7 +23,11 @@ Runs at http://localhost:4000/ (As configured in the server.ts file)
 ----------------------------------------------------
 
 `buildBrowser`: **"ng build"**  *[Builds the browser files (build\browser folder). http-serve or static file server will work]*
+
 `buildServer`: **"ng run ssrang:server"**,  *[Builds ssr (build\server folder)]*
+
 `compileServer`: **"webpack --config webpack.server.config.js --progress --colors"**, *[Compiles server.ts and makes build\server files bootstrap ready]*
+
 `startServer`: **"node dist/server"**, *[runs main.js files (express)]*
+
 `buildAll`: **"npm run buildBrowser && npm run buildServer && npm run compileServer && npm run startServer"** *[Runs all commands together]*
