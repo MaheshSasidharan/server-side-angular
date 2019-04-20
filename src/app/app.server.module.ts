@@ -4,6 +4,7 @@ import { ServerModule } from '@angular/platform-server';
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
+import { LOCAL_STORAGE } from "./service/localStorageProvider";
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
     ServerModule,
     ModuleMapLoaderModule,
   ],
-  bootstrap: [AppComponent],
+  providers: [{ provide: LOCAL_STORAGE, useValue: { getItem() {} } }],
+  bootstrap: [AppComponent]
 })
-export class AppServerModule {}
+export class AppServerModule { }

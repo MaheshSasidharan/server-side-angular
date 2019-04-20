@@ -8,6 +8,10 @@ import {provideModuleMap} from '@nguniversal/module-map-ngfactory-loader';
 import * as express from 'express';
 import {join} from 'path';
 
+const bodyParser = require('body-parser');
+const initRoutes = require("./server/route");
+// import * as initRoutes from './server/route/route';
+
 // Faster server renders w/ Prod mode (dev mode never needed)
 enableProdMode();
 
@@ -30,6 +34,14 @@ app.engine('html', ngExpressEngine({
 
 app.set('view engine', 'html');
 app.set('views', DIST_FOLDER);
+
+app.use(bodyParser.urlencoded({ // Middleware
+  extended: true
+}));
+app.use(bodyParser.json());
+
+// Start all routes
+initRoutes(app);
 
 // Example Express Rest API endpoints
 // app.get('/api/**', (req, res) => { });
