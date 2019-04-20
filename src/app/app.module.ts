@@ -8,6 +8,9 @@ import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { LOCAL_STORAGE } from "./service/localStorageProvider";
+import { HomeComponent } from './home/home.component';
+
+import { JwtInterceptor } from './helper/jwt.interceptor';
 
 const getLocalStorage = () => {
   return (typeof window !== "undefined") ? window.localStorage : null;
@@ -17,7 +20,8 @@ const getLocalStorage = () => {
   declarations: [
     AppComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     FormsModule,
@@ -26,7 +30,10 @@ const getLocalStorage = () => {
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule
   ],
-  providers: [{ provide: LOCAL_STORAGE, useFactory: getLocalStorage }],
+  providers: [
+    { provide: LOCAL_STORAGE, useFactory: getLocalStorage },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
