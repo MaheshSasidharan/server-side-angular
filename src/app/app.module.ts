@@ -11,6 +11,7 @@ import { LOCAL_STORAGE } from "./service/localStorageProvider";
 import { HomeComponent } from './home/home.component';
 
 import { JwtInterceptor } from './helper/jwt.interceptor';
+import { LoaderInterceptor } from './helper/loader.interceptor';
 
 const getLocalStorage = () => {
   return (typeof window !== "undefined") ? window.localStorage : null;
@@ -32,8 +33,9 @@ const getLocalStorage = () => {
   ],
   providers: [
     { provide: LOCAL_STORAGE, useFactory: getLocalStorage },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
-  ],
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

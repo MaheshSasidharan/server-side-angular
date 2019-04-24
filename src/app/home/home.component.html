@@ -1,4 +1,16 @@
-<p>
-  home works!
+<div>
+  <!--home works!
   {{items|json}}
-</p>
+  -->
+
+  <h1 *ngIf="loaderService.isLoading | async; else notLoading">
+    <h1>Loading!</h1>
+  </h1>
+  <ng-template #notLoading>
+    <h2>Not Loading!</h2>
+  </ng-template>
+
+  <div>
+    {{users|json}}
+  </div>
+</div>

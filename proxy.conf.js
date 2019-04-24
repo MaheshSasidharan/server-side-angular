@@ -3,10 +3,10 @@ const PROXY_CONFIG = [
         context: [
             "/api"
         ],
-        target: "http://localhost:4000",
+        target: "http://admin.local.idicore.com",
         secure: false,
         pathRewrite: {
-            "^/api": "http://localhost:4000/api"
+            "^/api": "http://admin.local.idicore.com/api"
         },
         changeOrigin: true
     }
