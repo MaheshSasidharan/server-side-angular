@@ -1,0 +1,35 @@
+<div>
+  <div>
+    <h4 class="title">User List</h4>
+    loading {{loaderService.isLoading | async}} {{ users.length }}
+  </div>
+  <div class="mat-elevation-z8" [hidden]="loaderService.isLoading | async">
+    <mat-paginator [length]="users.length" [pageSize]="request.pageSize" [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="request.pageIndex" [showFirstLastButtons]="true" (page)="onPaginate($event)">
+    </mat-paginator>
+    <table mat-table [dataSource]="paginatedUsers" matSort (matSortChange)="sortUsers($event)" class="table table-hover"
+      matSortActive="name" matSortDirection="asc">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="name"> Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="key">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="key"> Username </th>
+        <td mat-cell *matCellDef="let user"> {{user.key}} </td>
+      </ng-container>
+      <ng-container matColumnDef="smsPhone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="smsPhone"> Phone </th>
+        <td mat-cell *matCellDef="let user"> {{user.smsPhone}} </td>
+      </ng-container>
+      <ng-container matColumnDef="twoFactorEmail">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="twoFactorEmail"> Email </th>
+        <td mat-cell *matCellDef="let user"> {{user.twoFactorEmail}} </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [length]="users.length" [pageSize]="request.pageSize" [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="request.pageIndex" [showFirstLastButtons]="true" (page)="onPaginate($event)">
+    </mat-paginator>
+  </div>
+</div>

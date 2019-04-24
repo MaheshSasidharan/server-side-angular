@@ -4,6 +4,7 @@ import { AppComponent } from "./app.component";
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent} from './home/home.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: 'about', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'user-list', component: UserListComponent },
   // { path: 'product-details/:id', component: ProductDetails,
   //   children: [
   //     { path: '', redirectTo: 'overview', pathMatch: 'full' },

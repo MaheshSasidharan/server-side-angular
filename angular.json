@@ -160,6 +160,11 @@
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"
+    },
+    "@schematics/angular": {
+      "component": {
+        "spec": false
+      }
     }
   }
 }

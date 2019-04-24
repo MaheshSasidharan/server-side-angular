@@ -14,6 +14,7 @@ import { JwtInterceptor } from './helper/jwt.interceptor';
 import { LoaderInterceptor } from './helper/loader.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { UserListComponent } from './user-list/user-list.component';
 
 const getLocalStorage = () => {
   return (typeof window !== "undefined") ? window.localStorage : null;
@@ -24,7 +25,8 @@ const getLocalStorage = () => {
     AppComponent,
     AboutComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserListComponent
   ],
   imports: [
     FormsModule,
