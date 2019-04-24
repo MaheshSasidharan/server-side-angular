@@ -10,7 +10,7 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "less"
+          "style": "scss"
         }
       },
       "architect": {
@@ -27,7 +27,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less"
+              "src/custom-theme.scss",
+              "src/styles.scss"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -85,7 +86,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.less"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -155,5 +156,10 @@
       }
     }
   },
-  "defaultProject": "ssrang"
+  "defaultProject": "ssrang",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

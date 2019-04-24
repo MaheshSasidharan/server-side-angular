@@ -12,6 +12,8 @@ import { HomeComponent } from './home/home.component';
 
 import { JwtInterceptor } from './helper/jwt.interceptor';
 import { LoaderInterceptor } from './helper/loader.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
 
 const getLocalStorage = () => {
   return (typeof window !== "undefined") ? window.localStorage : null;
@@ -29,7 +31,9 @@ const getLocalStorage = () => {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [
     { provide: LOCAL_STORAGE, useFactory: getLocalStorage },
