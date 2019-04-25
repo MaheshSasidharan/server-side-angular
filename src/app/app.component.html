@@ -1,19 +1,20 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<div>
+    <app-navigation></app-navigation>
+</div>
+<div class="main">
+    {{loaderService.isLoading | async | json}}
 
-<div><a [routerLink]="['about']">About</a></div>
-<div><a [routerLink]="['login']">Login</a></div>
-<div><a [routerLink]="['home']">Home</a></div>
-<div><a [routerLink]="['user-list']">User List</a></div>
 
-<div class="content-wrapper">
-    <div class="content">
-        <div class="card">
-            <div class="card-header" data-background-color="tile">
-                <h4 class="title">This is ANG SSR</h4>
-            </div>
-            <div class="card-content">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
+    <h1 [hidden]="!(loaderService.isLoading | async)">
+            <h1>Loading!</h1>
+        </h1>
+
+        
+    <!-- <h1 *ngIf="loaderService.isLoading | async; else notLoading">
+        <h1>Loading!</h1>
+    </h1>
+    <ng-template #notLoading>
+        <h2>Not Loading!</h2>
+    </ng-template> -->
+    <router-outlet></router-outlet>
 </div>

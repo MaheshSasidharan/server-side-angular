@@ -5,13 +5,14 @@ import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent} from './home/home.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: 'about', pathMatch: 'full' },
-  { path: '', component: AppComponent },
-  { path: 'about', component: AboutComponent },
+  { path: '', component: LandingComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'user-list', component: UserListComponent },
   // { path: 'product-details/:id', component: ProductDetails,
   //   children: [
@@ -20,7 +21,7 @@ const routes: Routes = [
   //     { path: 'specs', component: Specs }
   //   ]
   // }
-  { path: '**', redirectTo: '/', pathMatch: 'full' },
+  //{ path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LoaderService } from '../service/loader.service';
 
 import { Sort, MatTable } from '@angular/material';
@@ -15,13 +15,14 @@ interface SortBy {
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild(MatTable) table: MatTable<any>;
   displayedColumns: string[] = ['name', 'key', 'smsPhone', 'twoFactorEmail'];
   pageSizeOptions = [5, 10, 25, 100];
   users: Array<any> = [];
   paginatedUsers: Array<any> = [];
   loading: Observable<boolean>;
+  userSearchSubscription: Subscription;
 
   request = {
     pageSize: this.pageSizeOptions[0],
@@ -32,7 +33,7 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, public loaderService: LoaderService) { }
 
   ngOnInit() {
-    this.userService.getCompanyAdminData()
+    this.userSearchSubscription = this.userService.getCompanyAdminData()
       .subscribe((data: Array<any>) => {
         this.users = data;
         this.users.sort(this.sortData());
@@ -87,5 +88,9 @@ export class UserListComponent implements OnInit {
       }
       return 0;
     };
+  }
+
+  ngOnDestroy(): void {
+    this.userSearchSubscription.unsubscribe();
   }
 }
