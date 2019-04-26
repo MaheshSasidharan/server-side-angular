@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { LoaderService } from '../service/loader.service';
 
 import { Sort, MatTable } from '@angular/material';
@@ -21,8 +22,8 @@ export class UserListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [5, 10, 25, 100];
   users: Array<any> = [];
   paginatedUsers: Array<any> = [];
-  loading: Observable<boolean>;
-  userSearchSubscription: Subscription;
+  isLoading: Boolean;
+  componentDestroyed$: Subject<boolean> = new Subject();
 
   request = {
     pageSize: this.pageSizeOptions[0],
@@ -30,10 +31,17 @@ export class UserListComponent implements OnInit, OnDestroy {
     sortValue: <SortBy>{ column: this.displayedColumns[0], direction: 'asc' }
   };
 
-  constructor(private userService: UserService, public loaderService: LoaderService) { }
+  constructor(private userService: UserService, private loaderService: LoaderService) { }
 
   ngOnInit() {
-    this.userSearchSubscription = this.userService.getCompanyAdminData()
+    this.loaderService.isLoading
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(async data => {
+        console.log(`User-List ${data}`)
+        this.isLoading = await data;
+      });
+    this.userService.getCompanyAdminData()
+      .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((data: Array<any>) => {
         this.users = data;
         this.users.sort(this.sortData());
@@ -90,7 +98,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     };
   }
 
-  ngOnDestroy(): void {
-    this.userSearchSubscription.unsubscribe();
+  ngOnDestroy() {
+    this.componentDestroyed$.next(true);
+    this.componentDestroyed$.complete();
   }
 }

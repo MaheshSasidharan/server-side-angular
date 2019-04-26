@@ -1,9 +1,9 @@
 <div>
   <div>
     <h4 class="title">User List</h4>
-    loading {{loaderService.isLoading | async}} {{ users.length }}
+    loading {{isLoading}} {{ users.length }}
   </div>
-  <div class="mat-elevation-z8" [hidden]="loaderService.isLoading | async">
+  <div class="mat-elevation-z8" *ngIf="!isLoading">
     <mat-paginator [length]="users.length" [pageSize]="request.pageSize" [pageSizeOptions]="pageSizeOptions"
       [pageIndex]="request.pageIndex" [showFirstLastButtons]="true" (page)="onPaginate($event)">
     </mat-paginator>

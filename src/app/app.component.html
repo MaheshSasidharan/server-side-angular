@@ -2,19 +2,11 @@
     <app-navigation></app-navigation>
 </div>
 <div class="main">
-    {{loaderService.isLoading | async | json}}
-
-
-    <h1 [hidden]="!(loaderService.isLoading | async)">
-            <h1>Loading!</h1>
-        </h1>
-
-        
-    <!-- <h1 *ngIf="loaderService.isLoading | async; else notLoading">
-        <h1>Loading!</h1>
+    <h1 *ngIf="isLoading; else notLoading">
+        <h4>Loading!</h4>
     </h1>
     <ng-template #notLoading>
-        <h2>Not Loading!</h2>
-    </ng-template> -->
+        <h2>Loading Complete!</h2>
+    </ng-template>
     <router-outlet></router-outlet>
 </div>
