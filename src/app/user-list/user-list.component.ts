@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { LoaderService } from '../service/loader.service';
 
 import { Sort, MatTable } from '@angular/material';
@@ -15,13 +16,14 @@ interface SortBy {
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   @ViewChild(MatTable) table: MatTable<any>;
   displayedColumns: string[] = ['name', 'key', 'smsPhone', 'twoFactorEmail'];
   pageSizeOptions = [5, 10, 25, 100];
   users: Array<any> = [];
   paginatedUsers: Array<any> = [];
-  loading: Observable<boolean>;
+  isLoading: Boolean;
+  componentDestroyed$: Subject<boolean> = new Subject();
 
   request = {
     pageSize: this.pageSizeOptions[0],
@@ -29,10 +31,17 @@ export class UserListComponent implements OnInit {
     sortValue: <SortBy>{ column: this.displayedColumns[0], direction: 'asc' }
   };
 
-  constructor(private userService: UserService, public loaderService: LoaderService) { }
+  constructor(private userService: UserService, private loaderService: LoaderService) { }
 
   ngOnInit() {
+    this.loaderService.isLoading
+      .pipe(takeUntil(this.componentDestroyed$))
+      .subscribe(async data => {
+        console.log(`User-List ${data}`)
+        this.isLoading = await data;
+      });
     this.userService.getCompanyAdminData()
+      .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((data: Array<any>) => {
         this.users = data;
         this.users.sort(this.sortData());
@@ -87,5 +96,10 @@ export class UserListComponent implements OnInit {
       }
       return 0;
     };
+  }
+
+  ngOnDestroy() {
+    this.componentDestroyed$.next(true);
+    this.componentDestroyed$.complete();
   }
 }

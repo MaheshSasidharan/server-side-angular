@@ -1,19 +1,12 @@
-<!--The content below is only a placeholder and can be replaced.-->
-
-<div><a [routerLink]="['about']">About</a></div>
-<div><a [routerLink]="['login']">Login</a></div>
-<div><a [routerLink]="['home']">Home</a></div>
-<div><a [routerLink]="['user-list']">User List</a></div>
-
-<div class="content-wrapper">
-    <div class="content">
-        <div class="card">
-            <div class="card-header" data-background-color="tile">
-                <h4 class="title">This is ANG SSR</h4>
-            </div>
-            <div class="card-content">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
+<div>
+    <app-navigation></app-navigation>
+</div>
+<div class="main">
+    <h1 *ngIf="isLoading; else notLoading">
+        <h4>Loading!</h4>
+    </h1>
+    <ng-template #notLoading>
+        <h2>Loading Complete!</h2>
+    </ng-template>
+    <router-outlet></router-outlet>
 </div>

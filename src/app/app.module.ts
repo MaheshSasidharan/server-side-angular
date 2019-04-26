@@ -7,14 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
-import { LOCAL_STORAGE } from "./service/localStorageProvider";
 import { HomeComponent } from './home/home.component';
-
-import { JwtInterceptor } from './helper/jwt.interceptor';
-import { LoaderInterceptor } from './helper/loader.interceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
 import { UserListComponent } from './user-list/user-list.component';
+
+import { JwtInterceptor } from './interceptor/jwt.interceptor';
+import { LoaderInterceptor } from './interceptor/loader.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LOCAL_STORAGE } from "./service/localStorageProvider";
+
+import { MaterialModule } from './material.module';
+import { NavigationComponent } from './layout/navigation/navigation.component';
+import { LandingComponent } from './landing/landing.component';
 
 const getLocalStorage = () => {
   return (typeof window !== "undefined") ? window.localStorage : null;
@@ -26,7 +29,9 @@ const getLocalStorage = () => {
     AboutComponent,
     LoginComponent,
     HomeComponent,
-    UserListComponent
+    UserListComponent,
+    NavigationComponent,
+    LandingComponent
   ],
   imports: [
     FormsModule,
@@ -41,7 +46,7 @@ const getLocalStorage = () => {
     { provide: LOCAL_STORAGE, useFactory: getLocalStorage },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
-    ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

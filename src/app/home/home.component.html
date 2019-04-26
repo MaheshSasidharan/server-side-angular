@@ -2,34 +2,16 @@
   <!--home works!
   {{items|json}}
   -->
-
-  <h1 *ngIf="loaderService.isLoading | async; else notLoading">
-    <h1>Loading!</h1>
-  </h1>
-  <ng-template #notLoading>
-    <h2>Not Loading!</h2>
-  </ng-template>
-
-  <div class="example-container">
-    <mat-form-field>
-      <input matInput placeholder="Input">
-    </mat-form-field>
-  
-    <mat-form-field>
-      <textarea matInput placeholder="Textarea"></textarea>
-    </mat-form-field>
-  
-    <mat-form-field>
-      <mat-select placeholder="Select">
-        <mat-option value="option">Option 1</mat-option>
-        <mat-option value="option">Option 2</mat-option>
-        <mat-option value="option">Option 3</mat-option>
-        <mat-option value="option">Option 4</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+  <div><a [routerLink]="['/about']">About</a></div>
+  <div><a [routerLink]="['/user-list']">User List</a></div>
 
   <div>
-    {{users|json}}
+    <div>
+      <h4>This is ANG SSR</h4>
+    </div>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
+
 </div>
