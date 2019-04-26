@@ -10,8 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './user-list/user-list.component';
 
-import { JwtInterceptor } from './helper/jwt.interceptor';
-import { LoaderInterceptor } from './helper/loader.interceptor';
+import { JwtInterceptor } from './interceptor/jwt.interceptor';
+import { LoaderInterceptor } from './interceptor/loader.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LOCAL_STORAGE } from "./service/localStorageProvider";
 
